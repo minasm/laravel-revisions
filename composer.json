@@ -1,6 +1,6 @@
 {
-    "name": "neurony/laravel-revisions",
-    "description": "Create multiple revisions of any Eloquent model record along with its underlying relationships",
+    "name": "minasm/laravel-revisions",
+    "description": "An update for from neurony. Create multiple revisions of any Eloquent model record along with its underlying relationships",
     "license": "MIT",
     "keywords": [
         "laravel",
@@ -22,9 +22,9 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "illuminate/contracts": "^7.0",
-        "illuminate/support": "^7.0",
-        "illuminate/database": "^7.0"
+        "illuminate/contracts": "^8.0",
+        "illuminate/support": "^8.0",
+        "illuminate/database": "^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^5.0",
