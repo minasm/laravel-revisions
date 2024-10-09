@@ -9,10 +9,8 @@ class RevisionOptions
 {
     /**
      * Flag whether to make a revision on model creation.
-     *
-     * @var bool
      */
-    private $revisionOnCreate = false;
+    private bool $revisionOnCreate = false;
 
     /**
      * The limit of revisions to be created for a model instance.
@@ -65,8 +63,8 @@ class RevisionOptions
     /**
      * Get the value of a property of this class.
      *
-     * @param $name
      * @return mixed
+     *
      * @throws Exception
      */
     public function __get($name)
@@ -82,18 +80,14 @@ class RevisionOptions
 
     /**
      * Get a fresh instance of this class.
-     *
-     * @return RevisionOptions
      */
     public static function instance(): self
     {
-        return new static();
+        return new static;
     }
 
     /**
      * Set the $revisionOnCreate to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @return RevisionOptions
      */
     public function enableRevisionOnCreate(): self
     {
@@ -104,9 +98,6 @@ class RevisionOptions
 
     /**
      * Set the $revisionLimit to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @param int $limit
-     * @return RevisionOptions
      */
     public function limitRevisionsTo(int $limit): self
     {
@@ -117,9 +108,6 @@ class RevisionOptions
 
     /**
      * Set the $revisionFields to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @param $fields
-     * @return RevisionOptions
      */
     public function fieldsToRevision(...$fields): self
     {
@@ -130,9 +118,6 @@ class RevisionOptions
 
     /**
      * Set the $revisionNotFields to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @param $fields
-     * @return RevisionOptions
      */
     public function fieldsToNotRevision(...$fields): self
     {
@@ -143,9 +128,6 @@ class RevisionOptions
 
     /**
      * Set the $revisionRelations to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @param $relations
-     * @return RevisionOptions
      */
     public function relationsToRevision(...$relations): self
     {
@@ -156,8 +138,6 @@ class RevisionOptions
 
     /**
      * Set the $createRevisionWhenRollingBack to work with in the Neurony\Revisions\Traits\HasRevisions trait.
-     *
-     * @return RevisionOptions
      */
     public function disableRevisioningWhenRollingBack(): self
     {
