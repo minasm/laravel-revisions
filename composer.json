@@ -11,7 +11,7 @@
         "changes",
         "copy"
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "authors": [
         {
@@ -37,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Neurony\\Revisions\\Tests\\": "tests"
+            "Neurony\\Revisions\\Tests\\": "tests/"
         },
         "classmap": [
             "tests/TestCase.php"
