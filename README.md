@@ -1,8 +1,6 @@
 ### Create revisions for any Eloquent model along with its relationships   
  
-[![Build Status](https://travis-ci.org/Neurony/laravel-revisions.svg?branch=master)](https://travis-ci.org/Neurony/laravel-revisions)
-[![StyleCI](https://github.styleci.io/repos/170915589/shield?branch=master)](https://github.styleci.io/repos/170915589)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Neurony/laravel-revisions/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Neurony/laravel-revisions/?branch=master)
+[![Build Status](https://github.com/minasm/laravel-revisions/workflows/tests/badge.svg)](https://github.com/minasm/laravel-revisions/actions/)
 
 - [Overview](#overview)   
 - [Installation](#installation)   
@@ -17,7 +15,7 @@ This package allows you to create revisions for any Eloquent model record along 
    
 * When a revision is created, it gets stored inside the `revisions` database table.    
 * Revisions are created automatically on model update, using the `updated` Eloquent event
-* Revisions can also can be created manually by using the `saveAsRevision()`   
+* Revisions can also be created manually by using the `saveAsRevision()`   
 * When a record is force deleted, all its revisions will also be removed automatically, using the `deleted` Eloquent event   
 
 As already mentioned, this package is capable of revisioning entire relationships alongside the model record.   
@@ -31,19 +29,19 @@ Relationship types that can be revisioned: `hasOne`, `morphOne`, `hasMany`, `mor
 Install the package via Composer (for **Laravel 6.0 and above**):
 
 ```
-composer require neurony/laravel-revisions
+composer require minas/laravel-revisions
 ```
 
 Install the package via Composer (for **Laravel 5.8**):
 
 ```
-composer require neurony/laravel-revisions:3.1.0
+composer require minas/laravel-revisions:3.1.0
 ```
 
 Install the package via Composer (for **Laravel 5.7 and below**):
 
 ```
-composer require neurony/laravel-revisions:2.0.0
+composer require minas/laravel-revisions:2.0.0
 ```
 
 Publish the config file with:
@@ -351,12 +349,7 @@ class YourModel extends Model
 
 ### Credits
 
-- [Andrei Badea](https://github.com/zbiller)
 - [All Contributors](../../contributors)
-
-### Security
-
-If you discover any security related issues, please email andrei.badea@neurony.ro instead of using the issue tracker.
 
 ### License
 
