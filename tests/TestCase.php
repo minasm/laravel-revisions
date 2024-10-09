@@ -11,15 +11,10 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    /**
-     * @var Post
-     */
-    public $post;
+    public Post $post;
 
     /**
      * Setup the test environment.
-     *
-     * @return void
      */
     public function setUp(): void
     {
@@ -31,9 +26,9 @@ abstract class TestCase extends Orchestra
     /**
      * Define environment setup.
      *
-     * @param Application $app
+     * @param  Application  $app
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.sqlite', [
@@ -45,20 +40,15 @@ abstract class TestCase extends Orchestra
 
     /**
      * Set up the database and migrate the necessary tables.
-     *
-     * @param  $app
      */
-    protected function setUpDatabase(Application $app)
+    protected function setUpDatabase(Application $app): void
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
 
-    /**
-     * @param Post|null $model
-     */
-    protected function makeModels(Post $model = null)
+    protected function makeModels(?Post $model = null): void
     {
-        $model = $model && $model instanceof Post ? $model : new Post;
+        $model = $model instanceof Post ? $model : new Post;
 
         for ($i = 1; $i <= 3; $i++) {
             Tag::create([
