@@ -3,6 +3,7 @@
 namespace Neurony\Revisions\Tests;
 
 use Carbon\Carbon;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Neurony\Revisions\Tests\Models\Author;
 use Neurony\Revisions\Tests\Models\Post;
@@ -20,7 +21,7 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->setUpDatabase($this->app);
+        $this->setUpDatabase();
     }
 
     /**
@@ -30,8 +31,11 @@ abstract class TestCase extends Orchestra
      */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.sqlite', [
+        /** @var ConfigRepository $config */
+        $config = $app['config'];
+
+        $config->set('database.default', 'testing');
+        $config->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
@@ -41,7 +45,7 @@ abstract class TestCase extends Orchestra
     /**
      * Set up the database and migrate the necessary tables.
      */
-    protected function setUpDatabase(Application $app): void
+    protected function setUpDatabase(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
