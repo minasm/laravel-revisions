@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Neurony\Revisions\Options\RevisionOptions;
 use Neurony\Revisions\Traits\HasRevisions;
 
+/**
+ * @property int $id
+ */
 class Post extends Model
 {
     use HasRevisions;

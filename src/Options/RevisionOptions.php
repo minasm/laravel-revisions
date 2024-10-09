@@ -16,13 +16,13 @@ class RevisionOptions
      * The limit of revisions to be created for a model instance.
      * If the limit is reached, oldest revisions will start getting deleted to make room for new ones.
      *
-     * @var int
+     * @var int|null
      */
-    private $revisionLimit;
+    private ?int $revisionLimit = null;
 
     /**
      * The fields that should be revisionable.
-     * By default (null) all fields are revisionable.
+     * By default, (null), all fields are revisionable.
      *
      * @var array
      */
@@ -30,7 +30,7 @@ class RevisionOptions
 
     /**
      * The fields that should be excluded from revisioning.
-     * By default (null) no fields are excluded from revisioning.
+     * By default, (null) no fields are excluded from revisioning.
      *
      * @var array
      */
@@ -38,7 +38,7 @@ class RevisionOptions
 
     /**
      * The model's relations that should be revisionable.
-     * By default (null) none of the model's relations are revisionable.
+     * By default, (null) none of the model's relations are revisionable.
      *
      * @var array
      */

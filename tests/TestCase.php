@@ -8,11 +8,13 @@ use Illuminate\Contracts\Foundation\Application;
 use Neurony\Revisions\Tests\Models\Author;
 use Neurony\Revisions\Tests\Models\Post;
 use Neurony\Revisions\Tests\Models\Tag;
+use Neurony\Revisions\Tests\Models\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
     public Post $post;
+    public User $user;
 
     /**
      * Setup the test environment.
@@ -40,6 +42,7 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $config->set('revisions.user_model', User::class);
     }
 
     /**
@@ -95,5 +98,11 @@ abstract class TestCase extends Orchestra
         $this->post->tags()->attach(Tag::pluck('id')->toArray());
 
         $this->post = $this->post->fresh();
+
+        $this->user = User::create([
+            'name' => 'Minas',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
     }
 }

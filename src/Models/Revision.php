@@ -49,6 +49,7 @@ class Revision extends Model implements RevisionModelContract
         if ($user && class_exists($user)) {
             return $this->belongsTo($user, 'user_id');
         }
+
     }
 
     /**

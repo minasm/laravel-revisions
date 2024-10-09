@@ -79,6 +79,14 @@ class CreateTestingTables extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
         });
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -95,5 +103,6 @@ class CreateTestingTables extends Migration
         Schema::dropIfExists('replies');
         Schema::dropIfExists('posts');
         Schema::dropIfExists('authors');
+        Schema::dropIfExists('users');
     }
 }
