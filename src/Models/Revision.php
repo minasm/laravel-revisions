@@ -53,7 +53,7 @@ class Revision extends Model implements RevisionModelContract
     }
 
     /**
-     * Get all of the owning revisionable models.
+     * Get all the owning revisionable models.
      */
     public function revisionable(): MorphTo
     {
@@ -63,15 +63,18 @@ class Revision extends Model implements RevisionModelContract
     /**
      * Filter the query by the given user id.
      *
-     * @param  Authenticatable|int  $user
+     * @param  Builder<Revision>  $query
      */
-    public function scopeWhereUser(Builder $query, Authenticatable $user): void
+    public function scopeWhereUser(Builder $query, Authenticatable|int $user): void
     {
-        $query->where('user_id', $user->id);
+        $userId = $user instanceof Authenticatable ? $user->id : $user;
+        $query->where('user_id', $userId);
     }
 
     /**
      * Filter the query by the given revisionable params (id, type).
+     *
+     * @param  Builder<Revision>  $query
      */
     public function scopeWhereRevisionable(Builder $query, int $id, string $type): void
     {

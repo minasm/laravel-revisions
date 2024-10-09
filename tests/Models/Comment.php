@@ -4,6 +4,9 @@ namespace Neurony\Revisions\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ */
 class Comment extends Model
 {
     /**

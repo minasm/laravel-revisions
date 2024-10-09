@@ -107,4 +107,35 @@ class RevisionTest extends TestCase
         $this->assertCount(1, $revisions);
         $this->assertEquals($revision->id, $revisions->first()->id);
     }
+
+    #[Test]
+    public function it_can_scope_where_revisionable()
+    {
+        $this->makeModels();
+
+        $revision1 = Revision::create([
+            'user_id' => 1,
+            'revisionable_id' => $this->post->id,
+            'revisionable_type' => get_class($this->post),
+            'metadata' => [
+                'attribute1' => 'value1',
+                'attribute2' => 'value2',
+            ],
+        ]);
+
+        $revision2 = Revision::create([
+            'user_id' => 2,
+            'revisionable_id' => $this->post->comments()->first()->id,
+            'revisionable_type' => get_class($this->post->comments()->first()),
+            'metadata' => [
+                'attribute1' => 'value3',
+                'attribute2' => 'value4',
+            ],
+        ]);
+
+        $revisions = Revision::whereRevisionable($this->post->id, get_class($this->post))->get();
+
+        $this->assertCount(1, $revisions);
+        $this->assertEquals($revision1->id, $revisions->first()->id);
+    }
 }

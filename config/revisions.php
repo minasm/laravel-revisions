@@ -16,7 +16,7 @@ return [
     | Concrete implementation for the "revision model".
     | To extend or replace this functionality, change the value below with your full "revision model" FQN.
     |
-    | Your class will have to (first option is recommended):
+    | Your class will have to (the first option is recommended):
     | - extend the "Neurony\Revisions\Models\Revision" class
     | - or at least implement the "Neurony\Revisions\Contracts\RevisionModelContract" interface.
     |
