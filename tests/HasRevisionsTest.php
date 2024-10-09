@@ -12,10 +12,11 @@ use Neurony\Revisions\Options\RevisionOptions;
 use Neurony\Revisions\Tests\Models\Comment;
 use Neurony\Revisions\Tests\Models\Post;
 use Neurony\Revisions\Tests\Models\Tag;
+use PHPUnit\Framework\Attributes\Test;
 
 class HasRevisionsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_automatically_creates_a_revision_when_the_record_changes()
     {
         $this->makeModels();
@@ -24,7 +25,7 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(1, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_manually_create_a_revision()
     {
         $this->makeModels();
@@ -34,7 +35,7 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(1, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_the_original_attribute_values_when_creating_a_revision()
     {
         $this->makeModels();
@@ -49,7 +50,7 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(100, $revision->metadata['views']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_rollback_to_a_past_revision()
     {
         $this->makeModels();
@@ -70,7 +71,7 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(100, $this->post->views);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_a_new_revision_when_rolling_back_to_a_past_revision()
     {
         $this->makeModels();
@@ -81,7 +82,7 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(2, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_all_revisions_of_a_record()
     {
         $this->makeModels();
@@ -95,10 +96,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(0, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_revision_when_creating_the_record()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->enableRevisionOnCreate();
@@ -110,10 +112,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(1, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_limit_the_number_of_revisions_a_record_can_have()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->limitRevisionsTo(5);
@@ -130,10 +133,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(5, Revision::count());
     }
 
-    /** @test */
+    #[Test]
     public function it_deletes_the_oldest_revisions_when_the_limit_is_achieved()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->limitRevisionsTo(5);
@@ -150,10 +154,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(16, $this->post->revisions()->oldest()->first()->id);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_specify_only_certain_fields_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->fieldsToRevision('name', 'votes');
@@ -172,10 +177,11 @@ class HasRevisionsTest extends TestCase
         $this->assertArrayNotHasKey('views', $revision->metadata);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_exclude_certain_fields_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->fieldsToNotRevision('name', 'votes');
@@ -194,10 +200,11 @@ class HasRevisionsTest extends TestCase
         $this->assertArrayHasKey('views', $revision->metadata);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_include_timestamps_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->withTimestamps();
@@ -213,10 +220,11 @@ class HasRevisionsTest extends TestCase
         $this->assertArrayHasKey('updated_at', $revision->metadata);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_save_belongs_to_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('author');
@@ -237,10 +245,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals($this->post->author->age, $revision->metadata['relations']['author']['records']['items'][0]['age']);
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_the_original_attribute_values_of_belongs_to_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('author');
@@ -268,10 +277,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals('30', $revision->metadata['relations']['author']['records']['items'][0]['age']);
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_belongs_to_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('author');
@@ -298,10 +308,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals('30', $author->age);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_save_has_one_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('reply');
@@ -322,10 +333,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals('Reply content', $revision->metadata['relations']['reply']['records']['items'][0]['content']);
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_the_original_attribute_values_of_has_one_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('reply');
@@ -350,10 +362,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals('Reply content', $revision->metadata['relations']['reply']['records']['items'][0]['content']);
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_has_one_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('reply');
@@ -378,10 +391,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals('Reply content', $reply->content);
     }
 
-    /** @test */
+    #[Test]
     public function it_removes_extra_created_has_one_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('reply');
@@ -405,10 +419,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals($relatedCountForRevisionCheckpoint, $this->post->reply()->count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_save_has_many_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('comments');
@@ -435,10 +450,11 @@ class HasRevisionsTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_the_original_attribute_values_of_has_many_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('comments');
@@ -471,10 +487,11 @@ class HasRevisionsTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_has_many_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('comments');
@@ -505,10 +522,11 @@ class HasRevisionsTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_removes_extra_created_has_many_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('comments');
@@ -534,10 +552,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals($relatedCountForRevisionCheckpoint, $this->post->comments()->count());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_save_belongs_to_many_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('tags');
@@ -563,10 +582,11 @@ class HasRevisionsTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_the_original_pivot_values_of_belongs_to_many_relations_when_creating_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('tags');
@@ -585,10 +605,11 @@ class HasRevisionsTest extends TestCase
         $this->assertEquals(3, count($revision->metadata['relations']['tags']['pivots']['items']));
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_belongs_to_many_relations_when_rolling_back_to_a_revision()
     {
-        $model = new class extends Post {
+        $model = new class extends Post
+        {
             public function getRevisionOptions(): RevisionOptions
             {
                 return parent::getRevisionOptions()->relationsToRevision('tags');

@@ -3,29 +3,17 @@
 namespace Neurony\Revisions\Contracts;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 interface RevisionModelContract
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user();
+    public function user(): BelongsTo;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function revisionable();
+    public function revisionable(): MorphTo;
 
-    /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     */
-    public function scopeWhereUser($query, Authenticatable $user);
+    public function scopeWhereUser(Builder $query, Authenticatable $user);
 
-    /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int $id
-     * @param string $type
-     */
-    public function scopeWhereRevisionable($query, int $id, string $type);
+    public function scopeWhereRevisionable(Builder $query, int $id, string $type);
 }

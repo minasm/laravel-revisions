@@ -3,6 +3,11 @@
 namespace Neurony\Revisions\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Neurony\Revisions\Options\RevisionOptions;
 use Neurony\Revisions\Traits\HasRevisions;
 
 class Post extends Model
@@ -30,45 +35,31 @@ class Post extends Model
         'views',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class, 'author_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function reply()
+    public function reply(): HasOne
     {
         return $this->hasOne(Reply::class, 'post_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'post_id');
     }
 
     /**
      * A post has and belongs to many tags.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
 
-    /**
-     * @return \Neurony\Revisions\Options\RevisionOptions
-     */
-    public function getRevisionOptions()
+    public function getRevisionOptions(): RevisionOptions
     {
-        return \Neurony\Revisions\Options\RevisionOptions::instance();
+        return RevisionOptions::instance();
     }
 }
