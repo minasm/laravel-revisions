@@ -15,8 +15,6 @@ class RevisionOptions
     /**
      * The limit of revisions to be created for a model instance.
      * If the limit is reached, oldest revisions will start getting deleted to make room for new ones.
-     *
-     * @var int|null
      */
     private ?int $revisionLimit = null;
 

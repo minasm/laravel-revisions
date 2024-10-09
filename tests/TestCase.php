@@ -14,6 +14,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class TestCase extends Orchestra
 {
     public Post $post;
+
     public User $user;
 
     /**

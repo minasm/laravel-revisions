@@ -25,8 +25,6 @@ class Tag extends Model
 
     /**
      * A tag has and belongs to many posts.
-     *
-     * @return BelongsToMany
      */
     public function posts(): BelongsToMany
     {

@@ -13,7 +13,6 @@ trait SaveRevisionJsonRepresentation
      * Extract all of the model's direct relations data.
      * Extract all of the model's pivoted relations data.
      *
-     * @return array
      * @throws \ReflectionException
      */
     protected function buildRevisionData(): array
@@ -37,8 +36,6 @@ trait SaveRevisionJsonRepresentation
      * Get all the fields that should be revisioned from the model instance.
      * Automatically unset primary and timestamp keys.
      * Also count for revision fields if any are set on the model.
-     *
-     * @return array
      */
     protected function buildRevisionDataFromModel(): array
     {
@@ -75,10 +72,6 @@ trait SaveRevisionJsonRepresentation
      * Extract revisionable data from a model's relation.
      * Extract the type, class and related records.
      * Store the extracted data into an array to be json inserted into the revisions table.
-     *
-     * @param string $relation
-     * @param array $attributes
-     * @return array
      */
     protected function buildRevisionDataFromDirectRelation(string $relation, array $attributes = []): array
     {
@@ -111,10 +104,6 @@ trait SaveRevisionJsonRepresentation
      * Extract revisionable data from a model's relation pivot table.
      * Extract the type, class, related records and pivot values.
      * Store the extracted data into an array to be json inserted into the revisions table.
-     *
-     * @param string $relation
-     * @param array $attributes
-     * @return array
      */
     protected function buildRevisionDataFromPivotedRelation(string $relation, array $attributes = []): array
     {
@@ -164,9 +153,6 @@ trait SaveRevisionJsonRepresentation
 
     /**
      * Verify if the data array contains the foreign keys.
-     *
-     * @param array $data
-     * @return bool
      */
     protected function dataHasForeignKeys(array $data = []): bool
     {
@@ -175,9 +161,6 @@ trait SaveRevisionJsonRepresentation
 
     /**
      * Verify if the data array contains the pivoted foreign keys.
-     *
-     * @param array $data
-     * @return bool
      */
     protected function dataHasPivotForeignKeys(array $data = []): bool
     {
@@ -186,11 +169,6 @@ trait SaveRevisionJsonRepresentation
 
     /**
      * Attach the foreign keys to the data array.
-     *
-     * @param array $data
-     * @param string $primaryKey
-     * @param string $foreignKey
-     * @return array
      */
     protected function dataWithForeignKeys(array $data, string $primaryKey, string $foreignKey): array
     {
@@ -204,12 +182,6 @@ trait SaveRevisionJsonRepresentation
 
     /**
      * Attach the pivoted foreign keys to the data array.
-     *
-     * @param array $data
-     * @param string $primaryKey
-     * @param string $foreignKey
-     * @param string $relatedKey
-     * @return array
      */
     protected function dataWithPivotForeignKeys(array $data, string $primaryKey, string $foreignKey, string $relatedKey): array
     {
@@ -225,12 +197,7 @@ trait SaveRevisionJsonRepresentation
     /**
      * Build the data array with each attribute<->value set for the given model.
      *
-     * @param array $data
-     * @param array $attributes
-     * @param int $index
-     * @param string $field
-     * @param string|int|null $value
-     * @return array
+     * @param  string|int|null  $value
      */
     protected function dataWithAttributeValue(array $data, array $attributes, int $index, string $field, $value = null): array
     {
@@ -244,12 +211,7 @@ trait SaveRevisionJsonRepresentation
     /**
      * Build the data array with each pivoted attribute<->value set for the given model.
      *
-     * @param array $data
-     * @param array $attributes
-     * @param int $index
-     * @param string $field
-     * @param string|int|null $value
-     * @return array
+     * @param  string|int|null  $value
      */
     protected function dataWithPivotAttributeValue(array $data, array $attributes, int $index, string $field, $value = null): array
     {
@@ -263,7 +225,6 @@ trait SaveRevisionJsonRepresentation
     /**
      * Get the relations that should be revisionable alongside the original model.
      *
-     * @return array
      * @throws \ReflectionException
      */
     protected function getRelationsForRevision(): array

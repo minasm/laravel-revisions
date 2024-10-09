@@ -15,9 +15,6 @@ trait RollbackRevisionJsonRepresentation
      * Loop through the revision's data.
      * If the revision's field name matches one from the model's attributes.
      * Replace the value from the model's attribute with the one from the revision.
-     *
-     * @param RevisionModelContract $revision
-     * @return void
      */
     protected function rollbackModelToRevision(RevisionModelContract $revision): void
     {
@@ -39,10 +36,6 @@ trait RollbackRevisionJsonRepresentation
      *
      * Please note that when creating a new relation, the primary key (id) will be the old one from the revision's data.
      * This way, the correspondence between the model and it's relation is kept.
-     *
-     * @param string $relation
-     * @param array $attributes
-     * @return void
      */
     protected function rollbackDirectRelationToRevision(string $relation, array $attributes): void
     {
@@ -97,10 +90,6 @@ trait RollbackRevisionJsonRepresentation
      *
      * Loop through the stored revision's relation pivots.
      * Sync the model's pivot values with the ones from the revision.
-     *
-     * @param string $relation
-     * @param array $attributes
-     * @return void
      */
     protected function rollbackPivotedRelationToRevision(string $relation, array $attributes): void
     {

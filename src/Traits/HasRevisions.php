@@ -15,8 +15,8 @@ use Neurony\Revisions\Options\RevisionOptions;
 
 trait HasRevisions
 {
-    use SaveRevisionJsonRepresentation;
     use RollbackRevisionJsonRepresentation;
+    use SaveRevisionJsonRepresentation;
 
     /**
      * The container for all the options necessary for this trait.
@@ -28,8 +28,6 @@ trait HasRevisions
 
     /**
      * Set the options for the HasRevisions trait.
-     *
-     * @return RevisionOptions
      */
     abstract public function getRevisionOptions(): RevisionOptions;
 
@@ -59,8 +57,7 @@ trait HasRevisions
     /**
      * Register a revisioning model event with the dispatcher.
      *
-     * @param Closure|string $callback
-     * @return void
+     * @param  Closure|string  $callback
      */
     public static function revisioning($callback): void
     {
@@ -70,8 +67,7 @@ trait HasRevisions
     /**
      * Register a revisioned model event with the dispatcher.
      *
-     * @param Closure|string $callback
-     * @return void
+     * @param  Closure|string  $callback
      */
     public static function revisioned($callback): void
     {
@@ -93,15 +89,17 @@ trait HasRevisions
     /**
      * Create a new revision record for the model instance.
      *
-     * @return Revision|bool
+     * Revision instance, false if revision is not created, or null if the revision was recently created,
+     * and options dictate no revision on create.
+     *
      * @throws Exception
      */
-    public function createNewRevision()
+    public function createNewRevision(): Revision|bool|null
     {
         $this->initRevisionOptions();
 
         if ($this->wasRecentlyCreated && $this->revisionOptions->revisionOnCreate !== true) {
-            return;
+            return null;
         }
 
         try {
@@ -127,7 +125,6 @@ trait HasRevisions
      * Manually save a new revision for a model instance.
      * This method should be called manually only where and if needed.
      *
-     * @return RevisionModelContract
      * @throws Exception
      */
     public function saveAsRevision(): RevisionModelContract
@@ -153,8 +150,6 @@ trait HasRevisions
     /**
      * Rollback the model instance to the given revision instance.
      *
-     * @param RevisionModelContract $revision
-     * @return bool
      * @throws Exception
      */
     public function rollbackToRevision(RevisionModelContract $revision): bool
@@ -195,7 +190,6 @@ trait HasRevisions
     /**
      * Remove all existing revisions from the database, belonging to a model instance.
      *
-     * @return void
      * @throws Exception
      */
     public function deleteAllRevisions(): void
@@ -210,8 +204,6 @@ trait HasRevisions
     /**
      * If a revision record limit is set on the model and that limit is exceeded.
      * Remove the oldest revisions until the limit is met.
-     *
-     * @return void
      */
     public function clearOldRevisions(): void
     {
@@ -231,8 +223,6 @@ trait HasRevisions
      * Check the revisionable fields set on the model.
      * If any of those fields have changed, then a new revisions should be stored.
      * If no fields are specifically set on the model, this will return true.
-     *
-     * @return bool
      */
     protected function shouldCreateRevision(): bool
     {
@@ -252,7 +242,7 @@ trait HasRevisions
             return $this->isDirty($fieldsToRevision);
         }
 
-        if ($fieldsToNotRevision && is_array($fieldsToNotRevision) && ! empty($fieldsToNotRevision)) {
+        if (is_array($fieldsToNotRevision) && ! empty($fieldsToNotRevision)) {
             return ! empty(Arr::except($this->getDirty(), $fieldsToNotRevision));
         }
 
@@ -261,8 +251,6 @@ trait HasRevisions
 
     /**
      * Both instantiate the revision options as well as validate their contents.
-     *
-     * @return void
      */
     protected function initRevisionOptions(): void
     {

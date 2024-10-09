@@ -13,8 +13,6 @@ class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Create a new service provider instance.
-     *
-     * @param Application $app
      */
     public function __construct(Application $app)
     {

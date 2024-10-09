@@ -110,9 +110,6 @@ class RelationHelper
 
     /**
      * Verify if a given relation is direct or not.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isDirect(string $relation): bool
     {
@@ -121,9 +118,6 @@ class RelationHelper
 
     /**
      * Verify if a given relation is pivoted or not.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isPivoted(string $relation): bool
     {
@@ -132,9 +126,6 @@ class RelationHelper
 
     /**
      * Verify if a given direct relation is of type parent.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isParent(string $relation): bool
     {
@@ -143,9 +134,6 @@ class RelationHelper
 
     /**
      * Verify if a given direct relation is of type child.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isChild(string $relation): bool
     {
@@ -155,9 +143,6 @@ class RelationHelper
     /**
      * Verify if a given direct relation is of type single child.
      * Ex: hasOne, morphOne.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isChildSingle(string $relation): bool
     {
@@ -167,9 +152,6 @@ class RelationHelper
     /**
      * Verify if a given direct relation is of type single child.
      * Ex: hasMany, morphMany.
-     *
-     * @param string $relation
-     * @return bool
      */
     public static function isChildMultiple(string $relation): bool
     {
@@ -180,8 +162,6 @@ class RelationHelper
      * Get all the defined model class relations.
      * Not just the eager loaded ones present in the $relations Eloquent property.
      *
-     * @param Model $model
-     * @return array
      * @throws ReflectionException
      */
     public static function getModelRelations(Model $model): array
