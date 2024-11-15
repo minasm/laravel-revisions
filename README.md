@@ -29,19 +29,19 @@ Relationship types that can be revisioned: `hasOne`, `morphOne`, `hasMany`, `mor
 Install the package via Composer (for **Laravel 6.0 and above**):
 
 ```
-composer require minas/laravel-revisions
+composer require minasm/laravel-revisions
 ```
 
 Install the package via Composer (for **Laravel 5.8**):
 
 ```
-composer require minas/laravel-revisions:3.1.0
+composer require minasm/laravel-revisions:3.1.0
 ```
 
 Install the package via Composer (for **Laravel 5.7 and below**):
 
 ```
-composer require minas/laravel-revisions:2.0.0
+composer require minasm/laravel-revisions:2.0.0
 ```
 
 Publish the config file with:
